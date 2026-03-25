@@ -1,0 +1,81 @@
+# 默认预警规则配置
+
+rules:
+  # 负面情感激增预警
+  - rule_id: negative_spike
+    name: 负面情感激增
+    condition: "sentiment_score < -0.5 and mention_count > 10"
+    severity: high
+    channels:
+      - feishu
+    cooldown_minutes: 60
+    enabled: true
+  
+  # 正面情感激增预警
+  - rule_id: positive_spike
+    name: 正面情感激增
+    condition: "sentiment_score > 0.7 and mention_count > 20"
+    severity: medium
+    channels:
+      - feishu
+    cooldown_minutes: 60
+    enabled: true
+  
+  # 丑闻事件预警
+  - rule_id: scandal_event
+    name: 丑闻事件
+    condition: "event_type == 'scandal'"
+    severity: critical
+    channels:
+      - feishu
+      - email
+    cooldown_minutes: 30
+    enabled: true
+  
+  # 高提及量预警
+  - rule_id: high_mention
+    name: 高提及量
+    condition: "mention_count > 100"
+    severity: low
+    channels:
+      - feishu
+    cooldown_minutes: 120
+    enabled: true
+  
+  # 政策变动预警
+  - rule_id: policy_change
+    name: 政策变动
+    condition: "event_type == 'policy'"
+    severity: medium
+    channels:
+      - feishu
+    cooldown_minutes: 60
+    enabled: true
+  
+  # 经济事件预警
+  - rule_id: economic_event
+    name: 经济事件
+    condition: "event_type == 'economic'"
+    severity: medium
+    channels:
+      - feishu
+    cooldown_minutes: 60
+    enabled: true
+
+# 通知模板
+notification_templates:
+  critical:
+    title: "🚨 紧急预警"
+    color: red
+  
+  high:
+    title: "⚠️ 高级预警"
+    color: orange
+  
+  medium:
+    title: "📢 中级预警"
+    color: yellow
+  
+  low:
+    title: "ℹ️ 低级预警"
+    color: blue

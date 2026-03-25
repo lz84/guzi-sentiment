@@ -1,0 +1,84 @@
+# 谷子舆情系统配置
+
+# 数据库配置
+mongodb:
+  host: localhost
+  port: 27018
+  database: guzi_sentiment
+  username: null
+  password: null
+
+redis:
+  host: localhost
+  port: 6380
+  db: 0
+  password: null
+
+# 向量存储配置
+vector_store:
+  persist_directory: ./data/vectors
+  collection_name: guzi_sentiment
+  embedding_provider: sentence_transformers
+  embedding_model: all-MiniLM-L6-v2
+
+# 渠道配置
+channels:
+  twitter:
+    enabled: true
+    rate_limit: 100
+    config:
+      api_key: ${TWITTER_API_KEY}
+  
+  reddit:
+    enabled: true
+    rate_limit: 60
+    config:
+      client_id: ${REDDIT_CLIENT_ID}
+      client_secret: ${REDDIT_CLIENT_SECRET}
+  
+  news:
+    enabled: true
+    rate_limit: 30
+    config:
+      tavily_api_key: ${TAVILY_API_KEY}
+
+# 预警配置
+alerts:
+  enabled: true
+  notification_channels:
+    - feishu
+    - email
+  
+  feishu:
+    webhook_url: ${FEISHU_WEBHOOK_URL}
+  
+  email:
+    smtp_host: smtp.example.com
+    smtp_port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+
+# 报告配置
+reports:
+  daily:
+    enabled: true
+    schedule: "0 8 * * *"  # 每天8点
+    topics: []
+  
+  weekly:
+    enabled: true
+    schedule: "0 9 * * 1"  # 每周一9点
+
+# API 配置
+api:
+  host: 0.0.0.0
+  port: 8080
+  debug: false
+  cors_origins:
+    - "*"
+
+# 日志配置
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: ./logs/guzi-sentiment.log

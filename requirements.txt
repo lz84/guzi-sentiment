@@ -1,0 +1,41 @@
+# 谷子舆情系统
+guzi-sentiment-system
+
+## 核心框架
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+
+## 数据库
+pymongo>=4.6.0
+redis>=5.0.0
+
+## HTTP 客户端
+httpx>=0.26.0
+
+## 任务调度
+apscheduler>=3.10.0
+
+## AI/ML
+openai>=1.10.0
+transformers>=4.37.0
+torch>=2.1.0
+spacy>=3.7.0
+sentence-transformers>=2.2.0
+
+## 数据处理
+pandas>=2.1.0
+numpy>=1.26.0
+
+## 向量存储
+chromadb>=0.4.0
+
+## LLM 框架
+langchain>=0.1.0
+
+## 配置
+pyyaml>=6.0
+
+## 工具
+python-multipart>=0.0.6  # 文件上传支持

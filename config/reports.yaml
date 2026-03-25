@@ -1,0 +1,89 @@
+# 日报服务配置
+
+# 日报模板
+daily_report_template:
+  title: "谷子舆情日报 - {date}"
+  sections:
+    - name: 数据概览
+      type: overview
+      enabled: true
+    
+    - name: 情感分布
+      type: sentiment_distribution
+      enabled: true
+    
+    - name: 关键事件
+      type: key_events
+      limit: 10
+      enabled: true
+    
+    - name: 热门话题
+      type: trending_topics
+      limit: 10
+      enabled: true
+    
+    - name: 情感趋势
+      type: sentiment_trend
+      enabled: true
+
+# 周报模板
+weekly_report_template:
+  title: "谷子舆情周报 - {date_range}"
+  sections:
+    - name: 周数据概览
+      type: overview
+      enabled: true
+    
+    - name: 每日统计
+      type: daily_breakdown
+      enabled: true
+    
+    - name: 情感趋势
+      type: sentiment_trend
+      enabled: true
+    
+    - name: 关键事件
+      type: key_events
+      limit: 20
+      enabled: true
+
+# 报告调度配置
+schedule:
+  daily:
+    enabled: true
+    cron: "0 8 * * *"  # 每天8:00
+    timezone: "Asia/Shanghai"
+  
+  weekly:
+    enabled: true
+    cron: "0 9 * * 1"  # 每周一9:00
+    timezone: "Asia/Shanghai"
+
+# 报告存储配置
+storage:
+  retention_days: 90  # 保留90天
+  export_formats:
+    - json
+    - markdown
+    - pdf
+
+# 通知配置
+notification:
+  channels:
+    - feishu
+  feishu:
+    template: |
+      ## 📊 {title}
+      
+      **日期**: {date}
+      
+      ### 数据概览
+      - 总采集量: {total_documents}
+      - 正面: {positive_count} ({positive_ratio}%)
+      - 负面: {negative_count} ({negative_ratio}%)
+      - 中性: {neutral_count} ({neutral_ratio}%)
+      
+      ### 关键事件
+      {events_list}
+      
+      [查看完整报告]({report_url})
